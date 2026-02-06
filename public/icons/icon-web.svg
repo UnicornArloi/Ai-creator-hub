@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="webGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff00ff"/>
+      <stop offset="100%" style="stop-color:#00ffff"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="45" r="32" fill="none" stroke="url(#webGrad)" stroke-width="2.5"/>
+  <ellipse cx="50" cy="45" rx="12" ry="32" fill="none" stroke="url(#webGrad)" stroke-width="1.5"/>
+  <ellipse cx="50" cy="45" rx="24" ry="32" fill="none" stroke="url(#webGrad)" stroke-width="1.5"/>
+  <line x1="18" y1="45" x2="82" y2="45" stroke="url(#webGrad)" stroke-width="1.5"/>
+  <line x1="22" y1="30" x2="78" y2="30" stroke="url(#webGrad)" stroke-width="1.5"/>
+  <line x1="22" y1="60" x2="78" y2="60" stroke="url(#webGrad)" stroke-width="1.5"/>
+  <ellipse cx="50" cy="80" rx="35" ry="8" fill="none" stroke="url(#webGrad)" stroke-width="2" transform="rotate(-15 50 80)"/>
+</svg>

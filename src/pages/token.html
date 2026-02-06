@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Token - AI Creator Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #ff00ff; --secondary: #00ffff; --bg: #050508; --text: #ffffff; --text-muted: #888888; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        .bg { position: fixed; width: 100%; height: 100%; z-index: 0; }
+        .bg-image { position: absolute; width: 100%; height: 100%; background: url('/bg.jpg') center/cover no-repeat fixed; }
+        .overlay { position: absolute; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 10; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 30px 0; }
+        .logo { font-size: 1.2rem; font-weight: 500; letter-spacing: 1px; }
+        h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .wallet-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); margin-bottom: 30px; }
+        .wallet-status { display: flex; align-items: center; gap: 12px; }
+        .wallet-dot { width: 10px; height: 10px; background: #ff4444; border-radius: 50%; }
+        .wallet-dot.connected { background: #00ff88; }
+        .wallet-text { font-size: 0.95rem; }
+        .wallet-text span { color: var(--text-muted); }
+        .btn-wallet { padding: 12px 24px; font-size: 0.9rem; font-weight: 500; cursor: pointer; border: none; border-radius: 8px; transition: all 0.3s; }
+        .btn-wallet.connect { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--bg); }
+        .btn-wallet.disconnect { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--text); }
+        .form { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 40px; margin-bottom: 40px; }
+        .form-section { margin-bottom: 30px; }
+        .section-title { font-size: 1rem; font-weight: 600; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .toggle { width: 50px; height: 26px; background: rgba(255,255,255,0.1); border-radius: 13px; position: relative; cursor: pointer; transition: 0.3s; }
+        .toggle.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+        .toggle::after { content: ''; position: absolute; width: 22px; height: 22px; background: white; border-radius: 50%; top: 2px; left: 2px; transition: 0.3s; }
+        .toggle.active::after { left: 26px; }
+        .tax-options { display: flex; gap: 12px; margin-bottom: 20px; }
+        .tax-btn { flex: 1; padding: 14px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-muted); font-size: 1rem; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .tax-btn.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); border-color: transparent; color: var(--bg); }
+        .allocation-panel { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 24px; margin-top: 20px; }
+        .allocation-row { margin-bottom: 20px; }
+        .allocation-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .allocation-label { font-size: 0.9rem; color: var(--text-muted); }
+        .allocation-value { font-size: 0.9rem; color: var(--primary); font-weight: 600; }
+        .slider { width: 100%; height: 4px; -webkit-appearance: none; background: rgba(255,255,255,0.1); border-radius: 2px; outline: none; }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; cursor: pointer; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; }
+        .form-group input { width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text); font-size: 1rem; border-radius: 8px; }
+        .form-group input:focus { outline: none; border-color: var(--primary); }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; font-size: 1rem; font-weight: 500; cursor: pointer; border: none; border-radius: 8px; transition: all 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--bg); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.1); }
+        .info-item { text-align: center; }
+        .info-item .icon { font-size: 1.8rem; margin-bottom: 10px; }
+        .info-item h4 { font-size: 1rem; font-weight: 500; margin-bottom: 6px; }
+        .info-item p { font-size: 0.9rem; color: var(--text-muted); }
+        footer { padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        footer p { color: var(--text-muted); font-size: 0.85rem; }
+        @media (max-width: 768px) { .container { padding: 0 24px; } h1 { font-size: 2rem; } .form { padding: 24px; } .info { grid-template-columns: 1fr; gap: 24px; } }
+    </style>
+</head>
+<body>
+    <div class="bg"><div class="bg-image"></div><div class="overlay"></div></div>
+    <div class="container">
+        <header style="display: flex; justify-content: space-between; align-items: center; padding: 30px 0;">
+            <div class="logo">AI Creator Hub</div>
+            <a href="../ai-creator-hub.html" style="padding: 8px 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: var(--text); text-decoration: none; font-size: 0.85rem;">← Home</a>
+        </header>
+        <h1>Create Token</h1>
+        <div class="wallet-bar">
+            <div class="wallet-status">
+                <div class="wallet-dot" id="walletDot"></div>
+                <div class="wallet-text">
+                    <div id="walletAddress">No Wallet</div>
+                    <span id="walletTip">Connect wallet first</span>
+                </div>
+            </div>
+            <button class="btn-wallet connect" id="connectBtn" onclick="connectWallet()">Connect Wallet</button>
+        </div>
+        <div class="form">
+            <div class="form-section">
+                <div class="form-group">
+                    <label>Token Name</label>
+                    <input type="text" placeholder="Bitcoin" id="tokenName">
+                </div>
+                <div class="form-group">
+                    <label>Token Symbol</label>
+                    <input type="text" placeholder="BTC" style="text-transform: uppercase;" id="tokenSymbol">
+                </div>
+                <div class="form-group">
+                    <label>Initial Supply</label>
+                    <input type="number" placeholder="1000000000" id="tokenSupply">
+                </div>
+            </div>
+            <div class="form-section">
+                <div class="section-title">
+                    <span>Enable Tax</span>
+                    <div class="toggle active" onclick="toggleTax()"></div>
+                </div>
+                <div class="tax-options" id="taxOptions">
+                    <button class="tax-btn active" onclick="selectTax(1, this)">1%</button>
+                    <button class="tax-btn" onclick="selectTax(3, this)">3%</button>
+                    <button class="tax-btn" onclick="selectTax(5, this)">5%</button>
+                    <button class="tax-btn" onclick="selectTax(10, this)">10%</button>
+                </div>
+                <div class="allocation-panel" id="allocationPanel">
+                    <div class="allocation-row">
+                        <div class="allocation-header">
+                            <span class="allocation-label">Marketing Wallet</span>
+                            <span class="allocation-value" id="walletPct">0%</span>
+                        </div>
+                        <input type="range" class="slider" min="0" max="100" value="0" id="walletSlider" oninput="updateAllocation()">
+                    </div>
+                    <div class="allocation-row">
+                        <div class="allocation-header">
+                            <span class="allocation-label">Burn (Reduce Supply)</span>
+                            <span class="allocation-value" id="burnPct">0%</span>
+                        </div>
+                        <input type="range" class="slider" min="0" max="100" value="0" id="burnSlider" oninput="updateAllocation()">
+                    </div>
+                    <div class="allocation-row">
+                        <div class="allocation-header">
+                            <span class="allocation-label">Dividends (Holder Rewards)</span>
+                            <span class="allocation-value" id="dividendPct">0%</span>
+                        </div>
+                        <input type="range" class="slider" min="0" max="100" value="0" id="dividendSlider" oninput="updateAllocation()">
+                    </div>
+                    <div class="allocation-row">
+                        <div class="allocation-header">
+                            <span class="allocation-label">Liquidity</span>
+                            <span class="allocation-value" id="liquidityPct">0%</span>
+                        </div>
+                        <input type="range" class="slider" min="0" max="100" value="0" id="liquiditySlider" oninput="updateAllocation()">
+                    </div>
+                </div>
+            </div>
+            <div class="form-section" id="walletSection">
+                <div class="form-group">
+                    <label>Tax Wallet Address</label>
+                    <input type="text" placeholder="0x..." id="taxWallet">
+                </div>
+            </div>
+            <button class="btn btn-primary" id="deployBtn" onclick="deployToken()" disabled>Deploy Token</button>
+        </div>
+        <div class="info">
+            <div class="info-item">
+                <div class="icon">⚡</div>
+                <h4>Fast Deploy</h4>
+                <p>30s on BSC</p>
+            </div>
+            <div class="info-item">
+                <div class="icon">🔒</div>
+                <h4>Verified</h4>
+                <p>Open source</p>
+            </div>
+            <div class="info-item">
+                <div class="icon">💰</div>
+                <h4>Low Gas</h4>
+                <p>100x cheaper than ETH</p>
+            </div>
+        </div>
+        <footer><p>AI Creator Hub © 2024</p></footer>
+    </div>
+    <script>
+        let walletConnected = false;
+        let walletAddress = '';
+        let taxEnabled = true;
+        let selectedTax = 1;
+        
+        async function connectWallet() {
+            const btn = document.getElementById('connectBtn');
+            btn.textContent = 'Connecting...';
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    walletAddress = accounts[0];
+                    walletConnected = true;
+                    document.getElementById('walletAddress').textContent = walletAddress.slice(0, 6) + '...' + walletAddress.slice(-4);
+                    document.getElementById('walletAddress').style.color = '#00ff88';
+                    document.getElementById('walletTip').textContent = '';
+                    document.getElementById('walletDot').classList.add('connected');
+                    btn.textContent = 'Disconnect';
+                    btn.classList.remove('connect');
+                    btn.classList.add('disconnect');
+                    btn.onclick = disconnectWallet;
+                    document.getElementById('deployBtn').disabled = false;
+                } catch (error) {
+                    btn.textContent = 'Connect Wallet';
+                    alert('Connect wallet first');
+                }
+            } else {
+                btn.textContent = 'Connect Wallet';
+                alert('Please install MetaMask');
+            }
+        }
+        
+        function disconnectWallet() {
+            walletConnected = false;
+            walletAddress = '';
+            document.getElementById('walletAddress').textContent = 'No Wallet';
+            document.getElementById('walletAddress').style.color = '';
+            document.getElementById('walletTip').textContent = 'Connect wallet first';
+            document.getElementById('walletDot').classList.remove('connected');
+            const btn = document.getElementById('connectBtn');
+            btn.textContent = 'Connect Wallet';
+            btn.classList.add('connect');
+            btn.classList.remove('disconnect');
+            btn.onclick = connectWallet;
+            document.getElementById('deployBtn').disabled = true;
+        }
+        
+        function toggleTax() {
+            taxEnabled = !taxEnabled;
+            document.querySelector('.toggle').classList.toggle('active', taxEnabled);
+            document.getElementById('taxOptions').style.display = taxEnabled ? 'flex' : 'none';
+            document.getElementById('allocationPanel').style.display = taxEnabled ? 'block' : 'none';
+            document.getElementById('walletSection').style.display = taxEnabled ? 'block' : 'none';
+        }
+        
+        function selectTax(rate, btn) {
+            selectedTax = rate;
+            document.querySelectorAll('.tax-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        
+        function updateAllocation() {
+            document.getElementById('walletPct').textContent = document.getElementById('walletSlider').value + '%';
+            document.getElementById('burnPct').textContent = document.getElementById('burnSlider').value + '%';
+            document.getElementById('dividendPct').textContent = document.getElementById('dividendSlider').value + '%';
+            document.getElementById('liquidityPct').textContent = document.getElementById('liquiditySlider').value + '%';
+        }
+        
+        function deployToken() {
+            if (!walletConnected) {
+                alert('Connect wallet first');
+                return;
+            }
+            const btn = document.getElementById('deployBtn');
+            btn.disabled = true;
+            setTimeout(() => {
+                alert('Token deployed!');
+                btn.disabled = false;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
