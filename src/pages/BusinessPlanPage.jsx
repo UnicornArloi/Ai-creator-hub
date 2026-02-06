@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { generateBusinessPlan } from '../utils/aiApi'
 
 export default function BusinessPlanPage() {
   const [connected, setConnected] = useState(false)
@@ -8,6 +9,9 @@ export default function BusinessPlanPage() {
   const [features, setFeatures] = useState('')
   const [market, setMarket] = useState('')
   const [revenue, setRevenue] = useState('')
+  const [generating, setGenerating] = useState(false)
+  const [generatedContent, setGeneratedContent] = useState('')
+  const [error, setError] = useState('')
 
   const industries = ['DeFi / Web3', 'GameFi', 'NFT Platform', 'Infrastructure', 'Consumer App']
 
@@ -43,20 +47,36 @@ export default function BusinessPlanPage() {
     setAddr('')
   }
 
-  const generate = () => {
+  const generate = async () => {
     if (!connected) {
       connect()
       return
     }
-    alert('Generating Business Plan...')
+    if (!projectName) {
+      alert('Please enter project name')
+      return
+    }
+
+    setGenerating(true)
+    setError('')
+    setGeneratedContent('')
+
+    try {
+      const description = `Industry: ${industry}\nFeatures: ${features}\nTarget Market: ${market}\nRevenue Model: ${revenue}`
+      const content = await generateBusinessPlan(projectName, description)
+      setGeneratedContent(content)
+    } catch (err) {
+      setError('Failed to generate: ' + err.message)
+    } finally {
+      setGenerating(false)
+    }
   }
 
   const copyContent = () => {
-    if (!connected) {
-      connect()
-      return
+    if (generatedContent) {
+      navigator.clipboard.writeText(generatedContent)
+      alert('Copied to clipboard!')
     }
-    alert('Copied to clipboard!')
   }
 
   return (
@@ -106,29 +126,44 @@ export default function BusinessPlanPage() {
               <textarea placeholder="How will the project generate revenue?" value={revenue} onChange={e => setRevenue(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px', minHeight: '120px', resize: 'vertical', fontFamily: 'inherit' }} />
             </div>
             <div>
-              <button onClick={generate} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508' }}>Generate BP</button>
-              <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>Copy</button>
+              <button onClick={generate} disabled={generating} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: generating ? 0.5 : 1 }}>
+                {generating ? '🤖 Generating...' : '🤖 Generate BP'}
+              </button>
+              <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
             </div>
+
+            {error && (
+              <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(255,0,0,0.1)', border: '1px solid rgba(255,0,0,0.3)', borderRadius: '8px', color: '#ff4444' }}>
+                {error}
+              </div>
+            )}
           </div>
 
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px', position: 'sticky', top: '80px' }}>
-            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// PREVIEW</div>
-            <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px' }}>
-              <h1 style={{ color: '#1a1a2e', fontSize: '1.5rem', marginBottom: '15px' }}>{projectName || 'Project Name'}</h1>
-              <p><strong>Industry:</strong> {industry}</p>
-              <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Executive Summary</h2>
-              <p style={{ color: '#4a4a6a', lineHeight: 1.8, marginBottom: '12px' }}>A revolutionary project that transforms the industry with innovative solutions.</p>
-              <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Market Opportunity</h2>
-              <p style={{ color: '#4a4a6a', lineHeight: 1.8, marginBottom: '12px' }}>{market || 'Targeting the growing blockchain user base in Asia Pacific.'}</p>
-              <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Product Features</h2>
-              <ul style={{ color: '#4a4a6a', marginLeft: '20px', marginBottom: '12px' }}>
-                <li>Feature 1: Innovative solution</li>
-                <li>Feature 2: User-friendly design</li>
-                <li>Feature 3: Secure and scalable</li>
-              </ul>
-              <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Revenue Model</h2>
-              <p style={{ color: '#4a4a6a', lineHeight: 1.8 }}>{revenue || 'Sustainable revenue through transaction fees and premium services.'}</p>
-            </div>
+            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'AI GENERATED' : 'PREVIEW'}</div>
+            
+            {generatedContent ? (
+              <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px', whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: '0.9rem', lineHeight: 1.8 }}>
+                {generatedContent}
+              </div>
+            ) : (
+              <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px' }}>
+                <h1 style={{ color: '#1a1a2e', fontSize: '1.5rem', marginBottom: '15px' }}>{projectName || 'Project Name'}</h1>
+                <p><strong>Industry:</strong> {industry}</p>
+                <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Executive Summary</h2>
+                <p style={{ color: '#4a4a6a', lineHeight: 1.8, marginBottom: '12px' }}>A revolutionary project that transforms the industry with innovative solutions.</p>
+                <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Market Opportunity</h2>
+                <p style={{ color: '#4a4a6a', lineHeight: 1.8, marginBottom: '12px' }}>{market || 'Targeting the growing blockchain user base in Asia Pacific.'}</p>
+                <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Product Features</h2>
+                <ul style={{ color: '#4a4a6a', marginLeft: '20px', marginBottom: '12px' }}>
+                  <li>Feature 1: Innovative solution</li>
+                  <li>Feature 2: User-friendly design</li>
+                  <li>Feature 3: Secure and scalable</li>
+                </ul>
+                <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Revenue Model</h2>
+                <p style={{ color: '#4a4a6a', lineHeight: 1.8 }}>{revenue || 'Sustainable revenue through transaction fees and premium services.'}</p>
+              </div>
+            )}
           </div>
         </div>
 

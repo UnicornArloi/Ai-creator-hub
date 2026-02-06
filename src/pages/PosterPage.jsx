@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { generatePoster } from '../utils/aiApi'
 
 export default function PosterPage() {
   const [connected, setConnected] = useState(false)
@@ -7,6 +8,9 @@ export default function PosterPage() {
   const [designType, setDesignType] = useState('Logo')
   const [style, setStyle] = useState('Cyberpunk')
   const [tagline, setTagline] = useState('')
+  const [generating, setGenerating] = useState(false)
+  const [generatedContent, setGeneratedContent] = useState('')
+  const [error, setError] = useState('')
 
   const designTypes = ['Logo', 'Banner', 'Social Media', 'Airdrop Poster']
   const styles = ['Cyberpunk', 'Minimal', 'Gradient', 'Cute']
@@ -43,20 +47,35 @@ export default function PosterPage() {
     setAddr('')
   }
 
-  const generate = () => {
+  const generate = async () => {
     if (!connected) {
       connect()
       return
     }
-    alert('Generating poster...')
+    if (!projectName) {
+      alert('Please enter project name')
+      return
+    }
+
+    setGenerating(true)
+    setError('')
+    setGeneratedContent('')
+
+    try {
+      const content = await generatePoster(projectName, style)
+      setGeneratedContent(content)
+    } catch (err) {
+      setError('Failed to generate: ' + err.message)
+    } finally {
+      setGenerating(false)
+    }
   }
 
-  const download = () => {
-    if (!connected) {
-      connect()
-      return
+  const copyContent = () => {
+    if (generatedContent) {
+      navigator.clipboard.writeText(generatedContent)
+      alert('Copied to clipboard!')
     }
-    alert('Downloading...')
   }
 
   return (
@@ -104,21 +123,36 @@ export default function PosterPage() {
               <input type="text" placeholder="Your catchy tagline" value={tagline} onChange={e => setTagline(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px' }} />
             </div>
             <div>
-              <button onClick={generate} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508' }}>Generate Poster</button>
-              <button onClick={download} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>Download</button>
+              <button onClick={generate} disabled={generating} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: generating ? 0.5 : 1 }}>
+                {generating ? '🤖 Generating...' : '🤖 Generate Poster'}
+              </button>
+              <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
             </div>
+
+            {error && (
+              <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(255,0,0,0.1)', border: '1px solid rgba(255,0,0,0.3)', borderRadius: '8px', color: '#ff4444' }}>
+                {error}
+              </div>
+            )}
           </div>
 
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px', position: 'sticky', top: '80px' }}>
-            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// PREVIEW</div>
-            <div style={{ background: style === 'Cyberpunk' ? 'linear-gradient(135deg, #1a1a2e, #16213e)' : style === 'Minimal' ? 'linear-gradient(135deg, #f5f5f5, #e0e0e0)' : style === 'Gradient' ? 'linear-gradient(135deg, #667eea, #764ba2)' : 'linear-gradient(135deg, #ff9a9e, #fecfef)', borderRadius: '8px', padding: '30px', minHeight: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-              <img src="icons/icon-poster.svg" style={{ width: '64px', height: '64px', marginBottom: '15px' }} alt="Poster" />
-              <div style={{ color: 'white', fontSize: '1.5rem', fontWeight: 700, marginBottom: '10px' }}>{projectName || 'Project Name'}</div>
-              <div style={{ color: '#ff00ff', fontSize: '1rem' }}>{tagline || 'Your tagline here'}</div>
-              <div style={{ marginTop: '20px', padding: '15px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', fontSize: '0.85rem', color: '#888' }}>
-                Style: {style}
+            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'AI GENERATED' : 'PREVIEW'}</div>
+            
+            {generatedContent ? (
+              <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px', whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: '0.9rem', lineHeight: 1.8 }}>
+                {generatedContent}
               </div>
-            </div>
+            ) : (
+              <div style={{ background: style === 'Cyberpunk' ? 'linear-gradient(135deg, #1a1a2e, #16213e)' : style === 'Minimal' ? 'linear-gradient(135deg, #f5f5f5, #e0e0e0)' : style === 'Gradient' ? 'linear-gradient(135deg, #667eea, #764ba2)' : 'linear-gradient(135deg, #ff9a9e, #fecfef)', borderRadius: '8px', padding: '30px', minHeight: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                <img src="icons/icon-poster.svg" style={{ width: '64px', height: '64px', marginBottom: '15px' }} alt="Poster" />
+                <div style={{ color: 'white', fontSize: '1.5rem', fontWeight: 700, marginBottom: '10px' }}>{projectName || 'Project Name'}</div>
+                <div style={{ color: '#ff00ff', fontSize: '1rem' }}>{tagline || 'Your tagline here'}</div>
+                <div style={{ marginTop: '20px', padding: '15px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', fontSize: '0.85rem', color: '#888' }}>
+                  Style: {style}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

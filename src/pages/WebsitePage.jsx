@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { generateWebsite } from '../utils/aiApi'
 
 export default function WebsitePage() {
   const [connected, setConnected] = useState(false)
@@ -8,6 +9,9 @@ export default function WebsitePage() {
   const [description, setDescription] = useState('')
   const [features, setFeatures] = useState('')
   const [email, setEmail] = useState('')
+  const [generating, setGenerating] = useState(false)
+  const [generatedContent, setGeneratedContent] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
     if (window.ethereum) {
@@ -41,20 +45,35 @@ export default function WebsitePage() {
     setAddr('')
   }
 
-  const generate = () => {
+  const generate = async () => {
     if (!connected) {
       connect()
       return
     }
-    alert('Generating website...')
+    if (!projectName) {
+      alert('Please enter project name')
+      return
+    }
+
+    setGenerating(true)
+    setError('')
+    setGeneratedContent('')
+
+    try {
+      const content = await generateWebsite(projectName, description)
+      setGeneratedContent(content)
+    } catch (err) {
+      setError('Failed to generate: ' + err.message)
+    } finally {
+      setGenerating(false)
+    }
   }
 
-  const deployIPFS = () => {
-    if (!connected) {
-      connect()
-      return
+  const copyContent = () => {
+    if (generatedContent) {
+      navigator.clipboard.writeText(generatedContent)
+      alert('Copied to clipboard!')
     }
-    alert('Deploying to IPFS...')
   }
 
   const themeBg = theme === 'Dark' ? 'linear-gradient(135deg, #0f0f1a, #1a1a2e)' : theme === 'Light' ? 'linear-gradient(135deg, #f5f5f5, #ffffff)' : 'linear-gradient(135deg, #667eea, #764ba2)'
@@ -108,40 +127,55 @@ export default function WebsitePage() {
               <input type="email" placeholder="contact@project.com" value={email} onChange={e => setEmail(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px' }} />
             </div>
             <div>
-              <button onClick={generate} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508' }}>Generate Website</button>
-              <button onClick={deployIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>Deploy to IPFS</button>
+              <button onClick={generate} disabled={generating} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: generating ? 0.5 : 1 }}>
+                {generating ? '🤖 Generating...' : '🤖 Generate Website'}
+              </button>
+              <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
             </div>
+
+            {error && (
+              <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(255,0,0,0.1)', border: '1px solid rgba(255,0,0,0.3)', borderRadius: '8px', color: '#ff4444' }}>
+                {error}
+              </div>
+            )}
           </div>
 
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px', position: 'sticky', top: '80px' }}>
-            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// PREVIEW</div>
-            <div style={{ background: 'white', borderRadius: '8px', overflow: 'hidden' }}>
-              <div style={{ background: '#1a1a2e', padding: '10px 15px', display: 'flex', gap: '8px' }}>
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff5f56' }}></div>
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e' }}></div>
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27ca3f' }}></div>
+            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'AI GENERATED' : 'PREVIEW'}</div>
+            
+            {generatedContent ? (
+              <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px', whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: '0.9rem', lineHeight: 1.8 }}>
+                {generatedContent}
               </div>
-              <div style={{ padding: '20px', minHeight: '250px', background: themeBg }}>
-                <div style={{ textAlign: 'center', padding: '30px 20px' }}>
-                  <h3 style={{ color: theme === 'Light' ? '#1a1a2e' : 'white', fontSize: '1.2rem', marginBottom: '8px' }}>{projectName || 'Project Name'}</h3>
-                  <p style={{ color: '#ff00ff', fontSize: '0.85rem' }}>{description || 'Project description'}</p>
+            ) : (
+              <div style={{ background: 'white', borderRadius: '8px', overflow: 'hidden' }}>
+                <div style={{ background: '#1a1a2e', padding: '10px 15px', display: 'flex', gap: '8px' }}>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff5f56' }}></div>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e' }}></div>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27ca3f' }}></div>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginTop: '20px' }}>
-                  <div style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
-                    <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: '5px' }}>⚡</span>
-                    <small style={{ fontSize: '0.7rem', color: '#888' }}>Fast</small>
+                <div style={{ padding: '20px', minHeight: '250px', background: themeBg }}>
+                  <div style={{ textAlign: 'center', padding: '30px 20px' }}>
+                    <h3 style={{ color: theme === 'Light' ? '#1a1a2e' : 'white', fontSize: '1.2rem', marginBottom: '8px' }}>{projectName || 'Project Name'}</h3>
+                    <p style={{ color: '#ff00ff', fontSize: '0.85rem' }}>{description || 'Project description'}</p>
                   </div>
-                  <div style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
-                    <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: '5px' }}>🔒</span>
-                    <small style={{ fontSize: '0.7rem', color: '#888' }}>Secure</small>
-                  </div>
-                  <div style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
-                    <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: '5px' }}>🌐</span>
-                    <small style={{ fontSize: '0.7rem', color: '#888' }}>Web3</small>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginTop: '20px' }}>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
+                      <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: '5px' }}>⚡</span>
+                      <small style={{ fontSize: '0.7rem', color: '#888' }}>Fast</small>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
+                      <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: '5px' }}>🔒</span>
+                      <small style={{ fontSize: '0.7rem', color: '#888' }}>Secure</small>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
+                      <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: '5px' }}>🌐</span>
+                      <small style={{ fontSize: '0.7rem', color: '#888' }}>Web3</small>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 

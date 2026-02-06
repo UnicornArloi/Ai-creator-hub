@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { generateToken } from '../utils/aiApi'
 
 export default function TokenPage() {
   const [connected, setConnected] = useState(false)
@@ -12,6 +13,9 @@ export default function TokenPage() {
   const [burnSlider, setBurnSlider] = useState(0)
   const [dividendSlider, setDividendSlider] = useState(0)
   const [liquiditySlider, setLiquiditySlider] = useState(0)
+  const [generating, setGenerating] = useState(false)
+  const [generatedContract, setGeneratedContract] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
     if (window.ethereum) {
@@ -45,17 +49,33 @@ export default function TokenPage() {
     setAddr('')
   }
 
-  const deployToken = () => {
+  const deployToken = async () => {
     if (!connected) {
       alert('Connect wallet first')
       return
     }
-    const btn = document.getElementById('deployBtn')
-    btn.disabled = true
-    setTimeout(() => {
-      alert('Token deployed!')
-      btn.disabled = false
-    }, 2000)
+    if (!tokenName || !tokenSymbol || !tokenSupply) {
+      alert('Please fill in all fields')
+      return
+    }
+
+    setGenerating(true)
+    setError('')
+    setGeneratedContract('')
+
+    try {
+      const contract = await generateToken(tokenName, tokenSymbol, tokenSupply)
+      setGeneratedContract(contract)
+    } catch (err) {
+      setError('Failed to generate contract: ' + err.message)
+    } finally {
+      setGenerating(false)
+    }
+  }
+
+  const copyContract = () => {
+    navigator.clipboard.writeText(generatedContract)
+    alert('Contract copied to clipboard!')
   }
 
   const toggleTax = () => {
@@ -154,26 +174,44 @@ export default function TokenPage() {
             </div>
           )}
 
-          <button onClick={deployToken} id="deployBtn" disabled={!connected} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '16px 32px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: connected ? 1 : 0.5, cursor: connected ? 'pointer' : 'not-allowed' }}>
-            Deploy Token
+          <button onClick={deployToken} id="deployBtn" disabled={!connected || generating} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '16px 32px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: connected && !generating ? 1 : 0.5, cursor: connected && !generating ? 'pointer' : 'not-allowed' }}>
+            {generating ? '🤖 Generating...' : '🤖 Generate Contract'}
           </button>
+
+          {error && (
+            <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(255,0,0,0.1)', border: '1px solid rgba(255,0,0,0.3)', borderRadius: '8px', color: '#ff4444' }}>
+              {error}
+            </div>
+          )}
+
+          {generatedContract && (
+            <div style={{ marginTop: '30px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>🤖 AI Generated Contract</h3>
+                <button onClick={copyContract} style={{ padding: '8px 16px', background: 'rgba(0,255,136,0.2)', border: '1px solid #00ff88', borderRadius: '6px', color: '#00ff88', fontSize: '0.85rem', cursor: 'pointer' }}>📋 Copy</button>
+              </div>
+              <pre style={{ background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', padding: '20px', overflow: 'auto', maxHeight: '400px', fontSize: '0.8rem', lineHeight: '1.5' }}>
+                {generatedContract}
+              </pre>
+            </div>
+          )}
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px', padding: '40px 0', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '1.8rem', marginBottom: '10px' }}>⚡</div>
-            <div style={{ fontSize: '1rem', fontWeight: 500, marginBottom: '6px' }}>Fast Deploy</div>
-            <div style={{ fontSize: '0.9rem', color: '#888' }}>30s on BSC</div>
+            <div style={{ fontSize: '1rem', fontWeight: 500, marginBottom: '6px' }}>AI Generated</div>
+            <div style={{ fontSize: '0.9rem', color: '#888' }}>Smart contract in seconds</div>
           </div>
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '1.8rem', marginBottom: '10px' }}>🔒</div>
             <div style={{ fontSize: '1rem', fontWeight: 500, marginBottom: '6px' }}>Verified</div>
-            <div style={{ fontSize: '0.9rem', color: '#888' }}>Open source</div>
+            <div style={{ fontSize: '0.9rem', color: '#888' }}>Open source standard</div>
           </div>
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '1.8rem', marginBottom: '10px' }}>💰</div>
             <div style={{ fontSize: '1rem', fontWeight: 500, marginBottom: '6px' }}>Low Gas</div>
-            <div style={{ fontSize: '0.9rem', color: '#888' }}>100x cheaper than ETH</div>
+            <div style={{ fontSize: '0.9rem', color: '#888' }}>Deploy on BSC</div>
           </div>
         </div>
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { generatePPT } from '../utils/aiApi'
 
 export default function PPTPage() {
   const [connected, setConnected] = useState(false)
@@ -6,6 +7,9 @@ export default function PPTPage() {
   const [topic, setTopic] = useState('')
   const [type, setType] = useState('Pitch Deck')
   const [pages, setPages] = useState(12)
+  const [generating, setGenerating] = useState(false)
+  const [generatedContent, setGeneratedContent] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
     if (window.ethereum) {
@@ -39,32 +43,35 @@ export default function PPTPage() {
     setAddr('')
   }
 
-  const generate = () => {
+  const generate = async () => {
     if (!connected) {
       connect()
       return
     }
-    alert('Generating PPT...')
-  }
-
-  const generatePreview = () => {
-    if (!connected) {
-      connect()
+    if (!topic) {
+      alert('Please enter presentation topic')
       return
     }
-    alert('Preview generated!')
+
+    setGenerating(true)
+    setError('')
+    setGeneratedContent('')
+
+    try {
+      const content = await generatePPT(topic, type)
+      setGeneratedContent(content)
+    } catch (err) {
+      setError('Failed to generate: ' + err.message)
+    } finally {
+      setGenerating(false)
+    }
   }
 
-  const generateSlidePreviews = () => {
-    const slides = []
-    const displayCount = Math.min(5, pages)
-    for (let i = 0; i < displayCount; i++) {
-      slides.push(i + 1)
+  const copyContent = () => {
+    if (generatedContent) {
+      navigator.clipboard.writeText(generatedContent)
+      alert('Copied to clipboard!')
     }
-    if (pages > 5) {
-      slides.push('...')
-    }
-    return slides
   }
 
   return (
@@ -108,22 +115,32 @@ export default function PPTPage() {
               <input type="range" min="5" max="30" value={pages} onChange={e => setPages(Number(e.target.value))} style={{ width: '100%' }} />
             </div>
             <div>
-              <button onClick={generate} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508' }}>Generate PPT</button>
-              <button onClick={generatePreview} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>Preview</button>
+              <button onClick={generate} disabled={generating} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: generating ? 0.5 : 1 }}>
+                {generating ? '🤖 Generating...' : '🤖 Generate PPT'}
+              </button>
+              <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
             </div>
+
+            {error && (
+              <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(255,0,0,0.1)', border: '1px solid rgba(255,0,0,0.3)', borderRadius: '8px', color: '#ff4444' }}>
+                {error}
+              </div>
+            )}
           </div>
 
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px', position: 'sticky', top: '80px' }}>
-            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// PPT PREVIEW</div>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '20px' }}>
-              {generateSlidePreviews().map((slide, i) => (
-                <div key={i} style={{ width: '100px', height: '65px', background: 'white', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', color: '#333', boxShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>{slide}</div>
-              ))}
-            </div>
-            <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '20px', minHeight: '200px' }}>
-              <h3 style={{ fontSize: '1.1rem', marginBottom: '10px', color: '#1a1a2e' }}>{topic || 'Project Name'}</h3>
-              <p style={{ fontSize: '0.85rem', color: '#666', lineHeight: 1.6 }}>Professional {type.toLowerCase()} including: Problem Analysis, Solution, Market Opportunity, Business Model, Tokenomics, Team, Roadmap.</p>
-            </div>
+            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'AI GENERATED' : 'PREVIEW'}</div>
+            
+            {generatedContent ? (
+              <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px', whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: '0.9rem', lineHeight: 1.8 }}>
+                {generatedContent}
+              </div>
+            ) : (
+              <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px' }}>
+                <h3 style={{ fontSize: '1.1rem', marginBottom: '10px', color: '#1a1a2e' }}>{topic || 'Project Name'}</h3>
+                <p style={{ fontSize: '0.85rem', color: '#666', lineHeight: 1.6 }}>Professional {type.toLowerCase()} including: Problem Analysis, Solution, Market Opportunity, Business Model, Tokenomics, Team, Roadmap.</p>
+              </div>
+            )}
           </div>
         </div>
 

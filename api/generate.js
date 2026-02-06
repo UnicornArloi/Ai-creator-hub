@@ -1,32 +1,26 @@
-// Vercel Serverless Function - AI Generation API
+// Vercel Serverless Function - SiliconFlow AI Generation API
 export default async function handler(req, res) {
   const { prompt, type } = req.body
 
-  if (!process.env.OPENAI_API_KEY) {
+  if (!process.env.SILICONFLOW_API_KEY) {
     return res.status(500).json({ 
       error: 'API Key not configured',
-      message: '请设置 OPENAI_API_KEY 环境变量'
+      message: 'Please set SILICONFLOW_API_KEY in Vercel environment variables'
     })
   }
 
   try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('https://api.siliconflow.cn/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        'Authorization': `Bearer ${process.env.SILICONFLOW_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'Qwen/Qwen2.5-72B-Instruct',
         messages: [
-          {
-            role: 'system',
-            content: getSystemPrompt(type)
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
+          { role: 'system', content: getSystemPrompt(type) },
+          { role: 'user', content: prompt }
         ],
         max_tokens: 2000,
         temperature: 0.7
@@ -40,7 +34,7 @@ export default async function handler(req, res) {
     }
 
     res.status(200).json({ 
-      result: data.choices[0].message.content,
+      result: data.choices?.[0]?.message?.content,
       usage: data.usage
     })
   } catch (error) {
