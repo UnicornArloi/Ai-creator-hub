@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { generatePPT } from '../utils/aiApi'
+import PptxGenJS from 'pptxgenjs'
 
 export default function PPTPage() {
   const [connected, setConnected] = useState(false)
@@ -67,11 +68,42 @@ export default function PPTPage() {
     }
   }
 
-  const copyContent = () => {
-    if (generatedContent) {
-      navigator.clipboard.writeText(generatedContent)
-      alert('Copied to clipboard!')
-    }
+  const downloadPPTX = () => {
+    if (!generatedContent) return
+
+    const pptx = new PptxGenJS()
+    
+    // Title slide
+    const titleSlide = pptx.addSlide()
+    titleSlide.addText(topic || 'Project Name', { x: 1, y: 2, w: '80%', h: 1, fontSize: 44, bold: true, align: 'center', color: '363636' })
+    titleSlide.addText(type, { x: 1, y: 3.5, w: '80%', h: 0.5, fontSize: 18, align: 'center', color: '888888' })
+    titleSlide.background = { color: 'FFFFFF' }
+
+    // Parse content and create slides
+    const lines = generatedContent.split('\n').filter(line => line.trim())
+    let currentSlide = pptx.addSlide()
+    currentSlide.background = { color: 'FFFFFF' }
+    
+    lines.forEach((line, index) => {
+      if (line.match(/^Slide \d+:/i) || line.match(/^\d+\./) || line.toUpperCase().startsWith('SLIDE')) {
+        currentSlide = pptx.addSlide()
+        currentSlide.background = { color: 'FFFFFF' }
+        currentSlide.addText(line.replace(/^(Slide \d+:|\d+\.\s*)/i, '').trim(), { 
+          x: 0.5, y: 0.5, w: '90%', h: 0.8, fontSize: 24, bold: true, color: 'ff00ff' 
+        })
+      } else if (line.trim()) {
+        const bullets = line.split(/[•\-\*]/).filter(b => b.trim())
+        if (bullets.length > 1) {
+          bullets.forEach(b => {
+            currentSlide.addText('• ' + b.trim(), { x: 0.7, y: 'auto', w: '85%', h: 0.5, fontSize: 16, color: '363636', bullet: { type: 'bullet' } })
+          })
+        } else {
+          currentSlide.addText(line.trim(), { x: 0.7, y: 'auto', w: '85%', h: 0.6, fontSize: 18, color: '363636' })
+        }
+      }
+    })
+
+    pptx.writeFile({ fileName: `${topic || 'Presentation'}.pptx` })
   }
 
   return (
@@ -94,7 +126,7 @@ export default function PPTPage() {
         </header>
 
         <h1 style={{ fontSize: '2.5rem', fontWeight: 600, marginBottom: '8px', letterSpacing: '-0.5px' }}>PPT Generator</h1>
-        <p style={{ color: '#888', marginBottom: '50px', fontSize: '1.1rem' }}>AI-powered pitch deck generation</p>
+        <p style={{ color: '#888', marginBottom: '50px', fontSize: '1.1rem' }}>AI-powered PPTX presentation generation</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px' }}>
@@ -116,9 +148,11 @@ export default function PPTPage() {
             </div>
             <div>
               <button onClick={generate} disabled={generating} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: generating ? 0.5 : 1 }}>
-                {generating ? '🤖 Generating...' : '🤖 Generate PPT'}
+                {generating ? '🤖 Generating...' : '📊 Generate PPT'}
               </button>
-              <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
+              {generatedContent && (
+                <button onClick={downloadPPTX} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download PPTX</button>
+              )}
             </div>
 
             {error && (
@@ -129,7 +163,7 @@ export default function PPTPage() {
           </div>
 
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px', position: 'sticky', top: '80px' }}>
-            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'AI GENERATED' : 'PREVIEW'}</div>
+            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'AI GENERATED PPT PREVIEW' : 'PREVIEW'}</div>
             
             {generatedContent ? (
               <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px', whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: '0.9rem', lineHeight: 1.8 }}>

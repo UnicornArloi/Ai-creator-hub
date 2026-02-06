@@ -137,3 +137,516 @@
 
   Plugin: vite:esbuild
   File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/BusinessPlanPage.jsx
+20:43:13 [vite] hmr update /src/pages/BusinessPlanPage.jsx
+20:43:13 [vite] warning: Duplicate key "border" in object literal
+122|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+123|              </div>
+124|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+125|                {connected ? 'Disconnect' : 'Connect'}
+126|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/BusinessPlanPage.jsx
+20:43:13 [vite] warning: Duplicate key "border" in object literal
+160|                </button>
+161|                {generatedContent &&
+162|                <button onClick={downloadPDF} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download PDF</button>
+   |                                                                                                                                                                                                                   ^
+163|                }
+164|              </div>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/BusinessPlanPage.jsx
+20:43:13 [vite] ✨ new dependencies optimized: html2pdf.js
+20:43:13 [vite] ✨ optimized dependencies changed. reloading
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+169|                <span style={{ fontSize: '0.85rem', color: '#ccc' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+170|              </div>
+171|              <button onClick={connected ? disconnect : connect} style={{ padding: '10px 20px', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+172|                {connected ? 'Disconnect' : 'Connect'}
+173|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/App.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+122|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+123|              </div>
+124|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+125|                {connected ? 'Disconnect' : 'Connect'}
+126|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/BusinessPlanPage.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+160|                </button>
+161|                {generatedContent &&
+162|                <button onClick={downloadPDF} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download PDF</button>
+   |                                                                                                                                                                                                                   ^
+163|                }
+164|              </div>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/BusinessPlanPage.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+107|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+108|              </div>
+109|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+110|                {connected ? 'Disconnect' : 'Connect'}
+111|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PPTPage.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+138|                  {generating ? '🤖 Generating...' : '🤖 Generate PPT'}
+139|                </button>
+140|                <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
+   |                                                                                                                                                                                                                   ^
+141|              </div>
+142|  
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PPTPage.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+110|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+111|              </div>
+112|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+113|                {connected ? 'Disconnect' : 'Connect'}
+114|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/DocsPage.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+143|                  {generating ? '🤖 Generating...' : '🤖 Generate Docs'}
+144|                </button>
+145|                <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
+   |                                                                                                                                                                                                                   ^
+146|              </div>
+147|  
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/DocsPage.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+128|              </div>
+129|            </div>
+130|            <button onClick={connected ? disconnect : connect} style={{ padding: '12px 24px', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                        ^
+131|              {connected ? 'Disconnect' : 'Connect Wallet'}
+132|            </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/TokenPage.jsx
+20:43:14 [vite] warning: Duplicate key "cursor" in object literal
+194|            }
+195|  
+196|            <button onClick={deployToken} id="deployBtn" disabled={!connected || generating} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '16px 32px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: connected && !generating ? 1 : 0.5, cursor: connected && !generating ? 'pointer' : 'not-allowed' }}>
+   |                                                                                                                                                                                                                                                                                                                                                                                                          ^
+197|              {generating ? '🤖 Generating...' : '🤖 Generate Contract'}
+198|            </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/TokenPage.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+111|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+112|              </div>
+113|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+114|                {connected ? 'Disconnect' : 'Connect'}
+115|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PosterPage.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+146|                  {generating ? '🤖 Generating...' : '🤖 Generate Poster'}
+147|                </button>
+148|                <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
+   |                                                                                                                                                                                                                   ^
+149|              </div>
+150|  
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PosterPage.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+111|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+112|              </div>
+113|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+114|                {connected ? 'Disconnect' : 'Connect'}
+115|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+20:43:14 [vite] warning: Duplicate key "border" in object literal
+150|                  {generating ? '🤖 Generating...' : '🤖 Generate Website'}
+151|                </button>
+152|                <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
+   |                                                                                                                                                                                                                   ^
+153|              </div>
+154|  
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+20:48:25 [vite] hmr update /src/pages/PPTPage.jsx
+20:48:25 [vite] warning: Duplicate key "border" in object literal
+139|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+140|              </div>
+141|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+142|                {connected ? 'Disconnect' : 'Connect'}
+143|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PPTPage.jsx
+20:48:25 [vite] warning: Duplicate key "border" in object literal
+171|                </button>
+172|                {generatedContent &&
+173|                <button onClick={downloadPPTX} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download PPTX</button>
+   |                                                                                                                                                                                                                    ^
+174|                }
+175|              </div>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PPTPage.jsx
+20:48:26 [vite] ✨ new dependencies optimized: pptxgenjs
+20:48:26 [vite] ✨ optimized dependencies changed. reloading
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+169|                <span style={{ fontSize: '0.85rem', color: '#ccc' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+170|              </div>
+171|              <button onClick={connected ? disconnect : connect} style={{ padding: '10px 20px', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+172|                {connected ? 'Disconnect' : 'Connect'}
+173|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/App.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+139|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+140|              </div>
+141|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+142|                {connected ? 'Disconnect' : 'Connect'}
+143|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PPTPage.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+171|                </button>
+172|                {generatedContent &&
+173|                <button onClick={downloadPPTX} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download PPTX</button>
+   |                                                                                                                                                                                                                    ^
+174|                }
+175|              </div>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PPTPage.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+128|              </div>
+129|            </div>
+130|            <button onClick={connected ? disconnect : connect} style={{ padding: '12px 24px', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                        ^
+131|              {connected ? 'Disconnect' : 'Connect Wallet'}
+132|            </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/TokenPage.jsx
+20:48:26 [vite] warning: Duplicate key "cursor" in object literal
+194|            }
+195|  
+196|            <button onClick={deployToken} id="deployBtn" disabled={!connected || generating} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '16px 32px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: connected && !generating ? 1 : 0.5, cursor: connected && !generating ? 'pointer' : 'not-allowed' }}>
+   |                                                                                                                                                                                                                                                                                                                                                                                                          ^
+197|              {generating ? '🤖 Generating...' : '🤖 Generate Contract'}
+198|            </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/TokenPage.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+110|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+111|              </div>
+112|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+113|                {connected ? 'Disconnect' : 'Connect'}
+114|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/DocsPage.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+143|                  {generating ? '🤖 Generating...' : '🤖 Generate Docs'}
+144|                </button>
+145|                <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
+   |                                                                                                                                                                                                                   ^
+146|              </div>
+147|  
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/DocsPage.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+111|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+112|              </div>
+113|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+114|                {connected ? 'Disconnect' : 'Connect'}
+115|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PosterPage.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+146|                  {generating ? '🤖 Generating...' : '🤖 Generate Poster'}
+147|                </button>
+148|                <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
+   |                                                                                                                                                                                                                   ^
+149|              </div>
+150|  
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PosterPage.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+122|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+123|              </div>
+124|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+125|                {connected ? 'Disconnect' : 'Connect'}
+126|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/BusinessPlanPage.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+160|                </button>
+161|                {generatedContent &&
+162|                <button onClick={downloadPDF} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download PDF</button>
+   |                                                                                                                                                                                                                   ^
+163|                }
+164|              </div>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/BusinessPlanPage.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+111|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+112|              </div>
+113|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+114|                {connected ? 'Disconnect' : 'Connect'}
+115|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+20:48:26 [vite] warning: Duplicate key "border" in object literal
+150|                  {generating ? '🤖 Generating...' : '🤖 Generate Website'}
+151|                </button>
+152|                <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
+   |                                                                                                                                                                                                                   ^
+153|              </div>
+154|  
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+20:52:08 [vite] hmr update /src/pages/PosterPage.jsx
+20:52:08 [vite] warning: Duplicate key "border" in object literal
+202|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+203|              </div>
+204|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+205|                {connected ? 'Disconnect' : 'Connect'}
+206|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PosterPage.jsx
+20:52:08 [vite] warning: Duplicate key "border" in object literal
+237|                  {generating ? '🎨 Generating...' : '🎨 Generate Poster'}
+238|                </button>
+239|                <button onClick={downloadPoster} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download PNG</button>
+   |                                                                                                                                                                                                                      ^
+240|              </div>
+241|  
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PosterPage.jsx
+20:59:58 [vite] hmr update /src/pages/DocsPage.jsx
+20:59:58 [vite] warning: Duplicate key "border" in object literal
+132|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+133|              </div>
+134|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+135|                {connected ? 'Disconnect' : 'Connect'}
+136|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/DocsPage.jsx
+20:59:58 [vite] warning: Duplicate key "border" in object literal
+167|                {generatedContent &&
+168|                <>
+169|                    <button onClick={downloadPDF} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ PDF</button>
+   |                                                                                                                                                                                                                                            ^
+170|                    <button onClick={downloadMarkdown} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Markdown</button>
+171|                  </>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/DocsPage.jsx
+20:59:58 [vite] warning: Duplicate key "border" in object literal
+168|                <>
+169|                    <button onClick={downloadPDF} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ PDF</button>
+170|                    <button onClick={downloadMarkdown} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Markdown</button>
+   |                                                                                                                                                                                                                            ^
+171|                  </>
+172|                }
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/DocsPage.jsx
+21:03:41 [vite] hmr update /src/pages/WebsitePage.jsx
+21:03:42 [vite] warning: Duplicate key "border" in object literal
+206|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+207|              </div>
+208|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+209|                {connected ? 'Disconnect' : 'Connect'}
+210|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:03:42 [vite] warning: Duplicate key "border" in object literal
+245|                {generatedContent &&
+246|                <>
+247|                    <button onClick={downloadHTML} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download HTML</button>
+   |                                                                                                                                                                                                                                             ^
+248|                    <button onClick={deployToGitHub} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>🚀 GitHub Pages</button>
+249|                    <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ IPFS</button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:03:42 [vite] warning: Duplicate key "border" in object literal
+246|                <>
+247|                    <button onClick={downloadHTML} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download HTML</button>
+248|                    <button onClick={deployToGitHub} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>🚀 GitHub Pages</button>
+   |                                                                                                                                                                                                                                               ^
+249|                    <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ IPFS</button>
+250|                  </>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:03:42 [vite] warning: Duplicate key "border" in object literal
+247|                    <button onClick={downloadHTML} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download HTML</button>
+248|                    <button onClick={deployToGitHub} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>🚀 GitHub Pages</button>
+249|                    <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ IPFS</button>
+   |                                                                                                                                                                                                                        ^
+250|                  </>
+251|                }
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:06:11 [vite] hmr update /src/pages/WebsitePage.jsx
+21:06:11 [vite] warning: Duplicate key "border" in object literal
+206|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+207|              </div>
+208|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+209|                {connected ? 'Disconnect' : 'Connect'}
+210|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:06:11 [vite] warning: Duplicate key "border" in object literal
+245|                {generatedContent &&
+246|                <>
+247|                    <button onClick={deployToGitHub} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>🚀 Deploy to GitHub</button>
+   |                                                                                                                                                                                                                                               ^
+248|                    <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ Deploy to IPFS</button>
+249|                  </>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:06:11 [vite] warning: Duplicate key "border" in object literal
+246|                <>
+247|                    <button onClick={deployToGitHub} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>🚀 Deploy to GitHub</button>
+248|                    <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ Deploy to IPFS</button>
+   |                                                                                                                                                                                                                        ^
+249|                  </>
+250|                }
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:06:17 [vite] hmr update /src/pages/WebsitePage.jsx
+21:06:17 [vite] warning: Duplicate key "border" in object literal
+203|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+204|              </div>
+205|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+206|                {connected ? 'Disconnect' : 'Connect'}
+207|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:06:17 [vite] warning: Duplicate key "border" in object literal
+242|                {generatedContent &&
+243|                <>
+244|                    <button onClick={deployToGitHub} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>🚀 Deploy to GitHub</button>
+   |                                                                                                                                                                                                                                               ^
+245|                    <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ Deploy to IPFS</button>
+246|                  </>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:06:17 [vite] warning: Duplicate key "border" in object literal
+243|                <>
+244|                    <button onClick={deployToGitHub} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>🚀 Deploy to GitHub</button>
+245|                    <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ Deploy to IPFS</button>
+   |                                                                                                                                                                                                                        ^
+246|                  </>
+247|                }
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:06:46 [vite] hmr update /src/pages/WebsitePage.jsx
+21:06:46 [vite] warning: Duplicate key "border" in object literal
+128|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+129|              </div>
+130|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+131|                {connected ? 'Disconnect' : 'Connect'}
+132|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:06:46 [vite] warning: Duplicate key "border" in object literal
+167|                {generatedContent &&
+168|                <>
+169|                    <button onClick={deployToGitHub} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>🚀 Deploy to GitHub</button>
+   |                                                                                                                                                                                                                                               ^
+170|                    <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ Deploy to IPFS</button>
+171|                  </>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:06:46 [vite] warning: Duplicate key "border" in object literal
+168|                <>
+169|                    <button onClick={deployToGitHub} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>🚀 Deploy to GitHub</button>
+170|                    <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ Deploy to IPFS</button>
+   |                                                                                                                                                                                                                        ^
+171|                  </>
+172|                }
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:07:11 [vite] hmr update /src/pages/WebsitePage.jsx
+21:07:11 [vite] warning: Duplicate key "border" in object literal
+128|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+129|              </div>
+130|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+131|                {connected ? 'Disconnect' : 'Connect'}
+132|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:07:11 [vite] warning: Duplicate key "border" in object literal
+166|                </button>
+167|                {generatedContent &&
+168|                <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ Deploy to IPFS</button>
+   |                                                                                                                                                                                                                    ^
+169|                }
+170|              </div>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx

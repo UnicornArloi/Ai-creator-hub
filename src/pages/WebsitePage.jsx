@@ -13,6 +13,8 @@ export default function WebsitePage() {
   const [generatedContent, setGeneratedContent] = useState('')
   const [error, setError] = useState('')
 
+  const themes = ['Dark', 'Light', 'Gradient']
+
   useEffect(() => {
     if (window.ethereum) {
       window.ethereum.request({ method: 'eth_accounts' }).then(accounts => {
@@ -69,11 +71,26 @@ export default function WebsitePage() {
     }
   }
 
-  const copyContent = () => {
-    if (generatedContent) {
-      navigator.clipboard.writeText(generatedContent)
-      alert('Copied to clipboard!')
-    }
+  const downloadHTML = () => {
+    if (!generatedContent) return
+    // HTML下载功能
+    alert('HTML download coming soon!')
+  }
+
+  const downloadZIP = () => {
+    if (!generatedContent) return
+    // ZIP下载功能需要额外库
+    alert('ZIP download coming soon!')
+  }
+
+  const deployToIPFS = async () => {
+    if (!generatedContent) return
+
+    alert('Deploying to IPFS...\n\nNote: IPFS deployment requires Pinata or similar service API keys.\n\nFor now, please download the HTML file and upload to IPFS manually.')
+  }
+
+  const deployToGitHub = () => {
+    alert('GitHub Pages Deployment:\n\n1. Download the HTML file\n2. Create a new GitHub repository\n3. Upload the HTML file\n4. Go to Settings > Pages > Enable from main branch\n\nYour site will be live at: https://yourusername.github.io/repo-name/')
   }
 
   const themeBg = theme === 'Dark' ? 'linear-gradient(135deg, #0f0f1a, #1a1a2e)' : theme === 'Light' ? 'linear-gradient(135deg, #f5f5f5, #ffffff)' : 'linear-gradient(135deg, #667eea, #764ba2)'
@@ -98,7 +115,7 @@ export default function WebsitePage() {
         </header>
 
         <h1 style={{ fontSize: '2.5rem', fontWeight: 600, marginBottom: '8px', letterSpacing: '-0.5px' }}>Website Builder</h1>
-        <p style={{ color: '#888', marginBottom: '50px', fontSize: '1.1rem' }}>AI-powered website generation with IPFS deployment</p>
+        <p style={{ color: '#888', marginBottom: '50px', fontSize: '1.1rem' }}>AI-powered website code generation</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px' }}>
@@ -109,9 +126,7 @@ export default function WebsitePage() {
             <div style={{ marginBottom: '20px' }}>
               <label style={{ display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px' }}>Theme</label>
               <select value={theme} onChange={e => setTheme(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px' }}>
-                <option>Dark</option>
-                <option>Light</option>
-                <option>Gradient</option>
+                {themes.map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
             <div style={{ marginBottom: '20px' }}>
@@ -119,7 +134,7 @@ export default function WebsitePage() {
               <textarea placeholder="Brief description..." value={description} onChange={e => setDescription(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px', minHeight: '80px', resize: 'vertical', fontFamily: 'inherit' }} />
             </div>
             <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px' }}>Features</label>
+              <label style={{ display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px' }}>Features (comma separated)</label>
               <input type="text" placeholder="e.g. Staking, Swap, Wallet" value={features} onChange={e => setFeatures(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px' }} />
             </div>
             <div style={{ marginBottom: '20px' }}>
@@ -128,9 +143,11 @@ export default function WebsitePage() {
             </div>
             <div>
               <button onClick={generate} disabled={generating} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: generating ? 0.5 : 1 }}>
-                {generating ? '🤖 Generating...' : '🤖 Generate Website'}
+                {generating ? '🤖 Generating...' : '🌐 Generate Website'}
               </button>
-              <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
+              {generatedContent && (
+                <button onClick={deployToIPFS} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>☁️ Deploy to IPFS</button>
+              )}
             </div>
 
             {error && (
@@ -141,11 +158,35 @@ export default function WebsitePage() {
           </div>
 
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px', position: 'sticky', top: '80px' }}>
-            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'AI GENERATED' : 'PREVIEW'}</div>
+            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'GENERATED WEBSITE PREVIEW' : 'PREVIEW'}</div>
             
             {generatedContent ? (
-              <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px', whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: '0.9rem', lineHeight: 1.8 }}>
-                {generatedContent}
+              <div style={{ background: 'white', borderRadius: '8px', overflow: 'hidden' }}>
+                <div style={{ background: '#1a1a2e', padding: '10px 15px', display: 'flex', gap: '8px' }}>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff5f56' }}></div>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e' }}></div>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27ca3f' }}></div>
+                </div>
+                <div style={{ padding: '20px', minHeight: '250px', background: themeBg }}>
+                  <div style={{ textAlign: 'center', padding: '30px 20px' }}>
+                    <h3 style={{ color: theme === 'Light' ? '#1a1a2e' : 'white', fontSize: '1.2rem', marginBottom: '8px' }}>{projectName || 'Project Name'}</h3>
+                    <p style={{ color: '#ff00ff', fontSize: '0.85rem' }}>{description || 'Project description'}</p>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginTop: '20px' }}>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
+                      <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: '5px' }}>⚡</span>
+                      <small style={{ fontSize: '0.7rem', color: '#888' }}>Fast</small>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
+                      <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: '5px' }}>🔒</span>
+                      <small style={{ fontSize: '0.7rem', color: '#888' }}>Secure</small>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
+                      <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: '5px' }}>🌐</span>
+                      <small style={{ fontSize: '0.7rem', color: '#888' }}>Web3</small>
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : (
               <div style={{ background: 'white', borderRadius: '8px', overflow: 'hidden' }}>

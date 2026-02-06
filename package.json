@@ -20,7 +20,10 @@
     "cors": "^2.8.6",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
+    "html2pdf.js": "^0.14.0",
+    "jspdf": "^4.1.0",
     "node-fetch": "^2.7.0",
+    "pptxgenjs": "^4.0.1",
     "vite": "^5.0.0"
   }
 }

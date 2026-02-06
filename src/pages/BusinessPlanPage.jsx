@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { generateBusinessPlan } from '../utils/aiApi'
+import html2pdf from 'html2pdf.js'
 
 export default function BusinessPlanPage() {
   const [connected, setConnected] = useState(false)
@@ -12,6 +13,7 @@ export default function BusinessPlanPage() {
   const [generating, setGenerating] = useState(false)
   const [generatedContent, setGeneratedContent] = useState('')
   const [error, setError] = useState('')
+  const pdfRef = useRef(null)
 
   const industries = ['DeFi / Web3', 'GameFi', 'NFT Platform', 'Infrastructure', 'Consumer App']
 
@@ -72,11 +74,19 @@ export default function BusinessPlanPage() {
     }
   }
 
-  const copyContent = () => {
-    if (generatedContent) {
-      navigator.clipboard.writeText(generatedContent)
-      alert('Copied to clipboard!')
+  const downloadPDF = () => {
+    if (!generatedContent || !pdfRef.current) return
+
+    const element = pdfRef.current
+    const opt = {
+      margin: 20,
+      filename: `${projectName || 'Business_Plan'}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }
+
+    html2pdf().set(opt).from(element).save()
   }
 
   return (
@@ -99,7 +109,7 @@ export default function BusinessPlanPage() {
         </header>
 
         <h1 style={{ fontSize: '2.5rem', fontWeight: 600, marginBottom: '8px', letterSpacing: '-0.5px' }}>Business Plan</h1>
-        <p style={{ color: '#888', marginBottom: '50px', fontSize: '1.1rem' }}>AI-powered professional BP generation</p>
+        <p style={{ color: '#888', marginBottom: '50px', fontSize: '1.1rem' }}>AI-powered professional BP document generation</p>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px' }}>
@@ -127,9 +137,11 @@ export default function BusinessPlanPage() {
             </div>
             <div>
               <button onClick={generate} disabled={generating} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: generating ? 0.5 : 1 }}>
-                {generating ? '🤖 Generating...' : '🤖 Generate BP'}
+                {generating ? '🤖 Generating...' : '📄 Generate BP PDF'}
               </button>
-              <button onClick={copyContent} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>📋 Copy</button>
+              {generatedContent && (
+                <button onClick={downloadPDF} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download PDF</button>
+              )}
             </div>
 
             {error && (
@@ -140,11 +152,20 @@ export default function BusinessPlanPage() {
           </div>
 
           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px', position: 'sticky', top: '80px' }}>
-            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'AI GENERATED' : 'PREVIEW'}</div>
+            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'AI GENERATED PDF PREVIEW' : 'PREVIEW'}</div>
             
             {generatedContent ? (
-              <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px', whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: '0.9rem', lineHeight: 1.8 }}>
-                {generatedContent}
+              <div ref={pdfRef} style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px', fontFamily: 'Arial, sans-serif' }}>
+                <div style={{ textAlign: 'center', marginBottom: '30px', paddingBottom: '20px', borderBottom: '2px solid #ff00ff' }}>
+                  <h1 style={{ color: '#1a1a2e', fontSize: '1.5rem', marginBottom: '10px' }}>{projectName}</h1>
+                  <p style={{ color: '#666', fontSize: '0.9rem' }}>Business Plan</p>
+                </div>
+                <div style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.8, color: '#333' }}>
+                  {generatedContent}
+                </div>
+                <div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #eee', fontSize: '0.75rem', color: '#999', textAlign: 'center' }}>
+                  Generated by AI Creator Hub • {new Date().toLocaleDateString()}
+                </div>
               </div>
             ) : (
               <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px' }}>
