@@ -90,108 +90,125 @@ export default function BusinessPlanPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#050508', color: 'white', position: 'relative' }}>
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'url(bg.jpg) center/cover fixed', zIndex: 0 }}></div>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.85)', zIndex: 1 }}></div>
-      <div style={{ position: 'relative', zIndex: 2, maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '30px 0' }}>
-          <div style={{ fontSize: '1.2rem', fontWeight: 500, letterSpacing: '1px' }}>AI Creator Hub</div>
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <button onClick={() => window.location.hash = ''} style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '6px', color: 'white', cursor: 'pointer', fontSize: '0.85rem' }}>← Home</button>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 16px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px' }}>
-              <div style={{ width: '8px', height: '8px', background: connected ? '#00ff88' : '#ff4444', borderRadius: '50%' }}></div>
-              <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
-            </div>
-            <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
-              {connected ? 'Disconnect' : 'Connect'}
-            </button>
-          </div>
-        </header>
-
-        <h1 style={{ fontSize: '2.5rem', fontWeight: 600, marginBottom: '8px', letterSpacing: '-0.5px' }}>Business Plan</h1>
-        <p style={{ color: '#888', marginBottom: '50px', fontSize: '1.1rem' }}>AI-powered professional BP document generation</p>
-
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px' }}>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px' }}>Project Name</label>
-              <input type="text" placeholder="e.g. DeFi Yield Platform" value={projectName} onChange={e => setProjectName(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px' }} />
-            </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px' }}>Industry</label>
-              <select value={industry} onChange={e => setIndustry(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px' }}>
-                {industries.map(i => <option key={i} value={i}>{i}</option>)}
-              </select>
-            </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px' }}>Key Features</label>
-              <textarea placeholder="Describe your project's key features..." value={features} onChange={e => setFeatures(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px', minHeight: '120px', resize: 'vertical', fontFamily: 'inherit' }} />
-            </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px' }}>Target Market</label>
-              <input type="text" placeholder="e.g. Asia Pacific crypto users" value={market} onChange={e => setMarket(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px' }} />
-            </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px' }}>Revenue Model</label>
-              <textarea placeholder="How will the project generate revenue?" value={revenue} onChange={e => setRevenue(e.target.value)} style={{ width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px', minHeight: '120px', resize: 'vertical', fontFamily: 'inherit' }} />
-            </div>
-            <div>
-              <button onClick={generate} disabled={generating} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: generating ? 0.5 : 1 }}>
-                {generating ? '🤖 Generating...' : '📄 Generate BP PDF'}
-              </button>
-              {generatedContent && (
-                <button onClick={downloadPDF} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download PDF</button>
-              )}
-            </div>
-
-            {error && (
-              <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(255,0,0,0.1)', border: '1px solid rgba(255,0,0,0.3)', borderRadius: '8px', color: '#ff4444' }}>
-                {error}
-              </div>
-            )}
-          </div>
-
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px', position: 'sticky', top: '80px' }}>
-            <div style={{ fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px' }}>// {generatedContent ? 'AI GENERATED PDF PREVIEW' : 'PREVIEW'}</div>
-            
-            {generatedContent ? (
-              <div ref={pdfRef} style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px', fontFamily: 'Arial, sans-serif' }}>
-                <div style={{ textAlign: 'center', marginBottom: '30px', paddingBottom: '20px', borderBottom: '2px solid #ff00ff' }}>
-                  <h1 style={{ color: '#1a1a2e', fontSize: '1.5rem', marginBottom: '10px' }}>{projectName}</h1>
-                  <p style={{ color: '#666', fontSize: '0.9rem' }}>Business Plan</p>
-                </div>
-                <div style={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.8, color: '#333' }}>
-                  {generatedContent}
-                </div>
-                <div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #eee', fontSize: '0.75rem', color: '#999', textAlign: 'center' }}>
-                  Generated by AI Creator Hub • {new Date().toLocaleDateString()}
-                </div>
-              </div>
+    React.createElement('div', {style: {minHeight: '100vh', background: '#050508', color: 'white', position: 'relative'}},
+      React.createElement('div', {style: {position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'url(bg.jpg) center/cover fixed', zIndex: 0}}),
+      React.createElement('div', {style: {position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.85)', zIndex: 1}}),
+      React.createElement('div', {style: {position: 'relative', zIndex: 2, maxWidth: '1200px', margin: '0 auto', padding: '0 40px'}},
+        React.createElement('header', {style: {display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '30px 0'}},
+          React.createElement('div', {style: {fontSize: '1.2rem', fontWeight: 500, letterSpacing: '1px'}}, 'AI Creator Hub'),
+          React.createElement('div', {style: {display: 'flex', gap: '12px', alignItems: 'center'}},
+            React.createElement('button', {
+              onClick: () => window.location.hash = '',
+              style: {padding: '8px 16px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '6px', color: 'white', cursor: 'pointer', fontSize: '0.85rem'}
+            }, 'Home'),
+            React.createElement('div', {style: {display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 16px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px'}},
+              React.createElement('div', {style: {width: '8px', height: '8px', background: connected ? '#00ff88' : '#ff4444', borderRadius: '50%'}}),
+              React.createElement('span', {style: {fontSize: '0.85rem', color: '#888'}}, connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected')
+            ),
+            React.createElement('button', {
+              onClick: connected ? disconnect : connect,
+              style: {padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none'}
+            }, connected ? 'Disconnect' : 'Connect')
+          )
+        ),
+        React.createElement('h1', {style: {fontSize: '2.5rem', fontWeight: 600, marginBottom: '8px', letterSpacing: '-0.5px'}}, 'Business Plan'),
+        React.createElement('p', {style: {color: '#888', marginBottom: '50px', fontSize: '1.11rem'}}, 'AI-powered professional BP document generation'),
+        React.createElement('div', {style: {display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px'}},
+          React.createElement('div', {style: {background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px'}},
+            React.createElement('div', {style: {marginBottom: '20px'}},
+              React.createElement('label', {style: {display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px'}}, 'Project Name'),
+              React.createElement('input', {
+                type: 'text',
+                placeholder: 'e.g. DeFi Yield Platform',
+                value: projectName,
+                onChange: e => setProjectName(e.target.value),
+                style: {width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px'}
+              })
+            ),
+            React.createElement('div', {style: {marginBottom: '20px'}},
+              React.createElement('label', {style: {display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px'}}, 'Industry'),
+              React.createElement('select', {
+                value: industry,
+                onChange: e => setIndustry(e.target.value),
+                style: {width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px'}
+              }, industries.map(i => React.createElement('option', {key: i, value: i}, i)))
+            ),
+            React.createElement('div', {style: {marginBottom: '20px'}},
+              React.createElement('label', {style: {display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px'}}, 'Key Features'),
+              React.createElement('textarea', {
+                placeholder: "Describe your project's key features...",
+                value: features,
+                onChange: e => setFeatures(e.target.value),
+                style: {width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px', minHeight: '120px', resize: 'vertical', fontFamily: 'inherit'}
+              })
+            ),
+            React.createElement('div', {style: {marginBottom: '20px'}},
+              React.createElement('label', {style: {display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px'}}, 'Target Market'),
+              React.createElement('input', {
+                type: 'text',
+                placeholder: 'e.g. Asia Pacific crypto users',
+                value: market,
+                onChange: e => setMarket(e.target.value),
+                style: {width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px'}
+              })
+            ),
+            React.createElement('div', {style: {marginBottom: '20px'}},
+              React.createElement('label', {style: {display: 'block', fontSize: '0.9rem', color: '#888', marginBottom: '8px'}}, 'Revenue Model'),
+              React.createElement('textarea', {
+                placeholder: 'How will the project generate revenue?',
+                value: revenue,
+                onChange: e => setRevenue(e.target.value),
+                style: {width: '100%', padding: '14px 16px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', fontSize: '1rem', borderRadius: '8px', minHeight: '120px', resize: 'vertical', fontFamily: 'inherit'}
+              })
+            ),
+            React.createElement('div', null,
+              React.createElement('button', {
+                onClick: generate,
+                disabled: generating,
+                style: {padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', marginRight: '12px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: generating ? 0.5 : 1}
+              }, generating ? 'Generating...' : 'Generate BP'),
+              generatedContent && React.createElement('button', {
+                onClick: downloadPDF,
+                style: {padding: '14px 28px', fontSize: '1rem', fontWeight: 500, borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)'}
+              }, 'Download PDF')
+            ),
+            error && React.createElement('div', {style: {marginTop: '20px', padding: '16px', background: 'rgba(255,0,0,0.1)', borderRadius: '8px', color: '#ff4444'}}, error)
+          ),
+          React.createElement('div', {style: {background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px', position: 'sticky', top: '80px'}},
+            React.createElement('div', {style: {fontSize: '0.85rem', color: '#888', marginBottom: '20px', letterSpacing: '1px'}}, '// PREVIEW'),
+            generatedContent ? (
+              React.createElement('div', {ref: pdfRef, style: {background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px', fontFamily: 'Arial, sans-serif'}},
+                React.createElement('div', {style: {textAlign: 'center', marginBottom: '30px', paddingBottom: '20px', borderBottom: '2px solid #ff00ff'}},
+                  React.createElement('h1', {style: {color: '#1a1a2e', fontSize: '1.5rem', marginBottom: '10px'}}, projectName),
+                  React.createElement('p', {style: {color: '#666', fontSize: '0.9rem'}}, 'Business Plan')
+                ),
+                React.createElement('div', {style: {whiteSpace: 'pre-wrap', fontSize: '0.85rem', lineHeight: 1.8, color: '#333'}}, generatedContent),
+                React.createElement('div', {style: {marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #eee', fontSize: '0.75rem', color: '#999', textAlign: 'center'}}, 'Generated by AI Creator Hub • ' + new Date().toLocaleDateString())
+              )
             ) : (
-              <div style={{ background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px' }}>
-                <h1 style={{ color: '#1a1a2e', fontSize: '1.5rem', marginBottom: '15px' }}>{projectName || 'Project Name'}</h1>
-                <p><strong>Industry:</strong> {industry}</p>
-                <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Executive Summary</h2>
-                <p style={{ color: '#4a4a6a', lineHeight: 1.8, marginBottom: '12px' }}>A revolutionary project that transforms the industry with innovative solutions.</p>
-                <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Market Opportunity</h2>
-                <p style={{ color: '#4a4a6a', lineHeight: 1.8, marginBottom: '12px' }}>{market || 'Targeting the growing blockchain user base in Asia Pacific.'}</p>
-                <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Product Features</h2>
-                <ul style={{ color: '#4a4a6a', marginLeft: '20px', marginBottom: '12px' }}>
-                  <li>Feature 1: Innovative solution</li>
-                  <li>Feature 2: User-friendly design</li>
-                  <li>Feature 3: Secure and scalable</li>
-                </ul>
-                <h2 style={{ color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px' }}>Revenue Model</h2>
-                <p style={{ color: '#4a4a6a', lineHeight: 1.8 }}>{revenue || 'Sustainable revenue through transaction fees and premium services.'}</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <footer style={{ padding: '30px 0', borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', marginTop: '50px' }}>
-          <p style={{ color: '#888', fontSize: '0.85rem' }}>AI Creator Hub © 2024</p>
-        </footer>
-      </div>
-    </div>
+              React.createElement('div', {style: {background: 'white', color: '#333', borderRadius: '8px', padding: '24px', minHeight: '400px'}},
+                React.createElement('h1', {style: {color: '#1a1a2e', fontSize: '1.5rem', marginBottom: '15px'}}, projectName || 'Project Name'),
+                React.createElement('p', null, React.createElement('strong', null, 'Industry: '), industry),
+                React.createElement('h2', {style: {color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px'}}, 'Executive Summary'),
+                React.createElement('p', {style: {color: '#4a4a6a', lineHeight: 1.8, marginBottom: '12px'}}, 'A revolutionary project that transforms the industry with innovative solutions.'),
+                React.createElement('h2', {style: {color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px'}}, 'Market Opportunity'),
+                React.createElement('p', {style: {color: '#4a4a6a', lineHeight: 1.8, marginBottom: '12px'}}, market || 'Targeting the growing blockchain user base in Asia Pacific.'),
+                React.createElement('h2', {style: {color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px'}}, 'Product Features'),
+                React.createElement('ul', {style: {color: '#4a4a6a', marginLeft: '20px', marginBottom: '12px'}},
+                  React.createElement('li', null, 'Feature 1: Innovative solution'),
+                  React.createElement('li', null, 'Feature 2: User-friendly design'),
+                  React.createElement('li', null, 'Feature 3: Secure and scalable')
+                ),
+                React.createElement('h2', {style: {color: '#16213e', fontSize: '1.2rem', margin: '20px 0 10px'}}, 'Revenue Model'),
+                React.createElement('p', {style: {color: '#4a4a6a', lineHeight: 1.8}}, revenue || 'Sustainable revenue through transaction fees and premium services.')
+              )
+            )
+          )
+        ),
+        React.createElement('footer', {style: {padding: '30px 0', borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', marginTop: '50px'}},
+          React.createElement('p', {style: {color: '#888', fontSize: '0.85rem'}}, 'AI Creator Hub © 2024')
+        )
+      )
+    )
   )
 }

@@ -1,3 +1,8 @@
-[dotenv@17.2.4] injecting env (1) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
-🚀 SiliconFlow AI Server running on http://localhost:3001
+[dotenv@17.2.4] injecting env (2) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+🚀 AI Server running on http://localhost:3001
 📡 POST /api/generate {prompt, type}
+📡 POST /api/poster {prompt, style}
+
+⚠️  Required env vars:
+   - SILICONFLOW_API_KEY (for text generation)
+   - LEONARDO_API_KEY (for image generation)

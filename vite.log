@@ -650,3 +650,24 @@
 
   Plugin: vite:esbuild
   File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/WebsitePage.jsx
+21:39:43 [vite] hmr update /src/pages/PosterPage.jsx
+21:39:43 [vite] warning: Duplicate key "border" in object literal
+133|                <span style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
+134|              </div>
+135|              <button onClick={connected ? disconnect : connect} style={{ padding: '8px 16px', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '6px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+   |                                                                                                                                                                                                                                                                                                                          ^
+136|                {connected ? 'Disconnect' : 'Connect'}
+137|              </button>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PosterPage.jsx
+21:39:43 [vite] warning: Duplicate key "border" in object literal
+164|                </button>
+165|                {generatedImage &&
+166|                <button onClick={downloadPoster} style={{ padding: '14px 28px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'transparent', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>⬇️ Download</button>
+   |                                                                                                                                                                                                                      ^
+167|                }
+168|              </div>
+
+  Plugin: vite:esbuild
+  File: /Users/kiritoart/.openclaw/workspace/ai-creator-hub-react/src/pages/PosterPage.jsx

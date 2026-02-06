@@ -108,7 +108,7 @@ export default function TokenPage() {
               <div style={{ fontSize: '0.85rem', color: '#888' }}>{connected ? '' : 'Connect wallet first'}</div>
             </div>
           </div>
-          <button onClick={connected ? disconnect : connect} style={{ padding: '12px 24px', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+          <button onClick={connected ? disconnect : connect} style={{ padding: '12px 24px', fontSize: '0.9rem', fontWeight: 500, borderRadius: '8px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
             {connected ? 'Disconnect' : 'Connect Wallet'}
           </button>
         </div>
@@ -174,7 +174,7 @@ export default function TokenPage() {
             </div>
           )}
 
-          <button onClick={deployToken} id="deployBtn" disabled={!connected || generating} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '16px 32px', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: connected && !generating ? 1 : 0.5, cursor: connected && !generating ? 'pointer' : 'not-allowed' }}>
+          <button onClick={deployToken} id="deployBtn" disabled={!connected || generating} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '16px 32px', fontSize: '1rem', fontWeight: 500, border: 'none', borderRadius: '8px', background: 'linear-gradient(135deg, #ff00ff, #00ffff)', color: '#050508', opacity: connected && !generating ? 1 : 0.5, cursor: connected && !generating ? 'pointer' : 'not-allowed' }}>
             {generating ? '🤖 Generating...' : '🤖 Generate Contract'}
           </button>
 

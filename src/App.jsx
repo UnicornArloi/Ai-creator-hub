@@ -149,7 +149,7 @@ function App() {
               <div style={{ width: '8px', height: '8px', background: connected ? '#00ff88' : '#ff4444', borderRadius: '50%' }}></div>
               <span style={{ fontSize: '0.85rem', color: '#ccc' }}>{connected ? addr.slice(0, 6) + '...' + addr.slice(-4) : 'Not Connected'}</span>
             </div>
-            <button onClick={connected ? disconnect : connect} style={{ padding: '10px 20px', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', border: 'none', borderRadius: '8px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+            <button onClick={connected ? disconnect : connect} style={{ padding: '10px 20px', fontSize: '0.9rem', fontWeight: 500, borderRadius: '8px', background: connected ? 'transparent' : 'linear-gradient(135deg, #ff00ff, #00ffff)', color: connected ? 'white' : '#050508', border: connected ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
               {connected ? 'Disconnect' : 'Connect'}
             </button>
           </div>
